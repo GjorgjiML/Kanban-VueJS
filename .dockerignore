@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.vscode
+*.md
+OtoTrak_SeniorVueJS_Task.md
+docker-compose.yml
+.dockerignore
