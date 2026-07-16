@@ -61,6 +61,8 @@ function createId() {
   return crypto.randomUUID()
 }
 
+export const STORE_PERSIST_KEY = 'ototrak-tasks'
+
 export const useTaskStore = defineStore('tasks', {
   state: () => ({
     tasks: seedTasks.map((task) => ({ ...task })),
@@ -116,10 +118,19 @@ export const useTaskStore = defineStore('tasks', {
     setPriorityFilter(priority) {
       this.priorityFilter = priority
     },
+
+    hydrate({ tasks, priorityFilter }) {
+      if (Array.isArray(tasks)) {
+        this.tasks = tasks
+      }
+      if (typeof priorityFilter === 'string') {
+        this.priorityFilter = priorityFilter
+      }
+    },
   },
 
   persist: {
-    key: 'ototrak-tasks',
+    key: STORE_PERSIST_KEY,
     paths: ['tasks', 'priorityFilter'],
   },
 })

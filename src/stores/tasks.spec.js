@@ -81,4 +81,25 @@ describe('useTaskStore', () => {
     store.setPriorityFilter('all')
     expect(store.filteredTasks).toHaveLength(store.tasks.length)
   })
+
+  it('hydrates tasks and filter from a snapshot', () => {
+    const store = useTaskStore()
+
+    store.hydrate({
+      tasks: [
+        {
+          id: 'sync-1',
+          title: 'Synced task',
+          description: '',
+          priority: 'medium',
+          status: 'todo',
+        },
+      ],
+      priorityFilter: 'medium',
+    })
+
+    expect(store.tasks).toHaveLength(1)
+    expect(store.tasks[0].title).toBe('Synced task')
+    expect(store.priorityFilter).toBe('medium')
+  })
 })

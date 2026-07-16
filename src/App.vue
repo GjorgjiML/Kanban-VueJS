@@ -2,10 +2,13 @@
 import { ref } from 'vue'
 import KanbanColumn from './components/KanbanColumn.vue'
 import TaskForm from './components/TaskForm.vue'
+import { useStoreSync } from './composables/useStoreSync'
 import { useTaskFilter } from './composables/useTaskFilter'
 import { PRIORITIES, useTaskStore } from './stores/tasks'
 
 const store = useTaskStore()
+useStoreSync()
+
 const {
   priorityFilter,
   columns,

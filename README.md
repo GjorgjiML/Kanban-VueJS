@@ -10,8 +10,10 @@ A small Kanban-style task board built for the OtoTrak Senior Vue.js take-home ta
 - All task and filter state managed in Pinia
 - Native HTML5 drag-and-drop between columns (plus Move to… for keyboard/mouse)
 - Pinia persist to `localStorage`
+- Live sync across open tabs/windows (Pinia + `localStorage` `storage` events + `BroadcastChannel`)
 - Column list enter/leave/move transitions
 - `defineModel()` for form open state (`v-model:open`)
+- Vitest unit tests for the store (`npm test`)
 
 ## Tech stack
 
