@@ -57,18 +57,22 @@ Stop with `Ctrl+C`, or `docker compose down`.
 
 ## CI / CD
 
-GitHub Actions workflows live under `.github/workflows/`:
+GitHub Actions workflows live under `.github/workflows/`.
+
+They use **shell-only steps** (no `actions/*` marketplace actions) so they work when the repo policy allows only actions from the owning account.
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `ci.yml` | Push / PR to `main` | `npm ci` → tests → production build → upload `dist` artifact |
-| `deploy.yml` | Push to `main` | Tests + build with Pages base path → deploy to **GitHub Pages** |
+| `ci.yml` | Push / PR to `main` | Checkout → `npm ci` → tests → production build |
+| `deploy.yml` | Push to `main` | Tests + build with Pages base path → force-push `dist` to `gh-pages` |
 
-After the first successful deploy, enable Pages in the repo:
+After the first successful deploy, enable Pages:
 
-**Settings → Pages → Build and deployment → Source: GitHub Actions**
+**Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `gh-pages` / `/ (root)`**
 
 Live site URL (once enabled): https://gjorgjiml.github.io/Kanban-VueJS/
+
+Optional: if you prefer official actions later, allow `actions/*` under **Settings → Actions → General → Actions permissions**.
 
 ## Project structure
 
