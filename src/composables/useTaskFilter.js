@@ -9,7 +9,7 @@ export function useTaskFilter() {
   const columns = computed(() =>
     STATUSES.map((status) => ({
       ...status,
-      tasks: filteredTasks.value.filter((task) => task.status === status.id),
+      tasks: store.tasksByStatus(status.id),
     })),
   )
 
