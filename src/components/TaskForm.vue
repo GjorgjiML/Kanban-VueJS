@@ -120,7 +120,7 @@ function onCancel() {
       <button type="submit" class="btn btn--primary">
         {{ task ? 'Save changes' : 'Add task' }}
       </button>
-      <button v-if="task || open" type="button" class="btn btn--ghost" @click="onCancel">
+      <button type="button" class="btn btn--ghost" @click="onCancel">
         Cancel
       </button>
     </div>
