@@ -28,10 +28,11 @@ export function useStoreSync() {
     if (snapshotsEqual(currentSnapshot(), snapshot)) return
 
     applyingRemote = true
-    store.hydrate(snapshot)
-    queueMicrotask(() => {
+    try {
+      store.hydrate(snapshot)
+    } finally {
       applyingRemote = false
-    })
+    }
   }
 
   function publish() {
@@ -65,7 +66,7 @@ export function useStoreSync() {
       () => {
         publish()
       },
-      { detached: true },
+      { detached: true, flush: 'sync' },
     )
   })
 
