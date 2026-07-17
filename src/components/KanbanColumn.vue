@@ -60,7 +60,14 @@ function onDrop(event) {
     </header>
 
     <TransitionGroup name="task-list" tag="div" class="kanban-column__body">
-      <TaskCard v-for="task in tasks" :key="task.id" :task="task" />
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @update="(id, payload) => store.updateTask(id, payload)"
+        @delete="(id) => store.deleteTask(id)"
+        @move="(id, target) => store.moveTask(id, target)"
+      />
     </TransitionGroup>
 
     <p v-if="tasks.length === 0" class="kanban-column__empty">

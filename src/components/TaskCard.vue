@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import PriorityBadge from './PriorityBadge.vue'
 import TaskForm from './TaskForm.vue'
-import { STATUSES, useTaskStore } from '../stores/tasks'
+import { STATUSES } from '../stores/tasks'
 
 const props = defineProps({
   task: {
@@ -11,7 +11,8 @@ const props = defineProps({
   },
 })
 
-const store = useTaskStore()
+const emit = defineEmits(['update', 'delete', 'move'])
+
 const isEditing = ref(false)
 
 const otherStatuses = computed(() =>
@@ -23,18 +24,18 @@ function startEdit() {
 }
 
 function saveEdit(payload) {
-  store.updateTask(props.task.id, payload)
+  emit('update', props.task.id, payload)
   isEditing.value = false
 }
 
 function removeTask() {
-  store.deleteTask(props.task.id)
+  emit('delete', props.task.id)
 }
 
 function moveTask(event) {
   const status = event.target.value
   if (!status) return
-  store.moveTask(props.task.id, status)
+  emit('move', props.task.id, status)
   event.target.value = ''
 }
 
